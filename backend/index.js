@@ -1,40 +1,41 @@
-let express = require("express");
-let mongoose = require("mongoose");
-let cors = require("cors");
-let bodyParser = require("body-parser");
-const createError = require("http-errors");
+// import modules
+const express = require("express");
+const { json, urlencoded } = express;
+const mongoose = require("mongoose");
+const morgan = require("morgan");
+const cors = require("cors");
+require("dotenv").config();
+const cookieParser = require("cookie-parser");
+const expressValidator = require("express-validator");
 
-// Connecting mongoDB Database
-mongoose
-  .connect("mongodb://127.0.0.1:27017/mydatabase")
-  .then((x) => {
-    console.log(
-      `Connected to Mongo! Database name: "${x.connections[0].name}"`
-    );
-  })
-  .catch((err) => {
-    console.error("Error connecting to mongo", err.reason);
-  });
+// app
 const app = express();
-app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
-app.use(cors());
 
-// PORT
-const port = process.env.PORT || 4000;
-const server = app.listen(port, () => {
-  console.log("Connected to port " + port);
-});
-// 404 Error
-app.use((req, res, next) => {
-  next(createError(404));
-});
-app.use(function (err, req, res, next) {
-  console.error(err.message);
-  if (!err.statusCode) err.statusCode = 500;
-  res.status(err.statusCode).send(err.message);
-});
+// db
+mongoose
+	.connect(process.env.MONGO_URI, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
+	.then(() => console.log("DB CONNECTED"))
+	.catch((err) => console.log("DB CONNECTION ERROR", err));
+
+// middleware
+app.use(morgan("dev"));
+app.use(cors({ origin: true, credentials: true }));
+app.use(json());
+app.use(urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(expressValidator());
+
+// routes
+const userRoutes = require("./routes/user");
+app.use("/", userRoutes);
+
+// port
+const port = process.env.PORT || 8080;
+
+// listener
+const server = app.listen(port, () =>
+	console.log(`Server is running on port ${port}`)
+);
