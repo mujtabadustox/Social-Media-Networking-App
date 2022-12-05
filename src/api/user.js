@@ -1,5 +1,10 @@
-export const register = async ({ username, email, password } = {}) => {
-  const user = { username, email, password };
+export const register = async ({
+  username,
+  email,
+  password,
+  profession,
+} = {}) => {
+  const user = { username, email, password, profession };
 
   try {
     const res = await fetch(`http://localhost:8080/register`, {

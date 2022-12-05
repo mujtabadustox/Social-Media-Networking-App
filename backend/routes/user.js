@@ -3,10 +3,10 @@ const router = express.Router();
 
 // import controllers
 const {
-	register,
-	login,
-	logout,
-	getLoggedInUser,
+  register,
+  login,
+  logout,
+  getLoggedInUser,
 } = require("../controllers/user");
 
 // import middlewares

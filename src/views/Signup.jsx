@@ -30,6 +30,7 @@ const Signup = () => {
   // form states
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [profession, setProfession] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -47,7 +48,7 @@ const Signup = () => {
     console.log("AAAAAAAAAAAAA222222222222222");
 
     try {
-      const res = await register({ username, email, password });
+      const res = await register({ username, email, password, profession });
       if (res.error) toast.error(res.error);
       else {
         toast.success(res.message);
@@ -85,6 +86,16 @@ const Signup = () => {
           label="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      <div className="form-group">
+        <TextField
+          size="small"
+          variant="outlined"
+          className="form-control"
+          label="Profession"
+          value={profession}
+          onChange={(e) => setProfession(e.target.value)}
         />
       </div>
       <div className="form-group">
