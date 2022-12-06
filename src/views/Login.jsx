@@ -23,6 +23,7 @@ import { login } from "../api/user";
 const Login = () => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
+  const { profession, setProfession } = useContext(UserContext);
 
   // form states
   const [email, setEmail] = useState("");
@@ -38,6 +39,7 @@ const Login = () => {
       else {
         toast.success(res.message);
         setUser(res.username);
+        setProfession(res.profession);
         // redirect the user to home
         history.replace("/");
       }

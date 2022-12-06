@@ -34,6 +34,8 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [status, setStatus] = useState("");
+  const [points, setPoints] = useState("");
 
   // password validation
   let hasSixChar = password.length >= 6;
@@ -46,9 +48,18 @@ const Signup = () => {
     e.preventDefault();
 
     console.log("AAAAAAAAAAAAA222222222222222");
+    setPoints(0);
+    setStatus("Veteran");
 
     try {
-      const res = await register({ username, email, password, profession });
+      const res = await register({
+        username,
+        email,
+        password,
+        profession,
+        points,
+        status,
+      });
       if (res.error) toast.error(res.error);
       else {
         toast.success(res.message);

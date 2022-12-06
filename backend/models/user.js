@@ -24,6 +24,18 @@ const userSchema = new mongoose.Schema(
       trim: true,
       unique: true,
     },
+    status: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+    },
+    points: {
+      type: Number,
+      required: true,
+      trim: true,
+      unique: true,
+    },
     hashedPassword: {
       type: String,
       required: true,

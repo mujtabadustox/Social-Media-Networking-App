@@ -20,6 +20,7 @@ import Homepage from "./views/Homepage";
 import Signup from "./views/Signup";
 import Login from "./views/Login.jsx";
 import Header from "./components/Header";
+import Profile from "./views/Profile";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -45,6 +46,7 @@ const App = () => {
           <Route exact path="/" component={Homepage} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/profile" component={Profile} />
         </UserContext.Provider>
       </Router>
     </div>

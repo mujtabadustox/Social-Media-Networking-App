@@ -10,9 +10,7 @@ import { Link } from "react-router-dom";
 // functions
 import { logout } from "../api/user";
 
-import "./Styles/Home.css";
-
-const Homepage = () => {
+const Profile = () => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const { profession, setProfession } = useContext(UserContext);
@@ -38,8 +36,12 @@ const Homepage = () => {
     <div className="container text-center">
       <div className="alert alert-light p-1">
         <h1>
-          {user && <span className="text-success">Welcome {user}!!</span>} Have
-          a Good Day! {console.log(profession)}
+          {user && (
+            <span className="text-success">
+              Welcome {user}!! profession {profession}
+            </span>
+          )}{" "}
+          Profile
         </h1>
       </div>
       <div className="bottom">
@@ -47,8 +49,8 @@ const Homepage = () => {
           Logout
         </button>
         {user && (
-          <Link className="btn btn-dark" to="/profile">
-            Profile
+          <Link className="btn btn-dark" to="/">
+            Home
           </Link>
         )}
       </div>
@@ -56,4 +58,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default Profile;
