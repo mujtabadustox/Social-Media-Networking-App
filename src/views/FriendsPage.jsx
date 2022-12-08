@@ -28,6 +28,7 @@ const FriendsPage = () => {
           <div className="card">
             <p>{item.username}</p>
             <p>{item.profession}</p>
+            <img id="img" src={item.displaypicture} />
           </div>
         ))}
       </div>

@@ -6,6 +6,7 @@ export const register = async ({
   points,
   status,
   hobl,
+  displaypicture,
 } = {}) => {
   const user = {
     username,
@@ -15,6 +16,7 @@ export const register = async ({
     points,
     status,
     hobl,
+    displaypicture,
   };
 
   try {

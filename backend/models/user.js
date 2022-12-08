@@ -38,6 +38,9 @@ const userSchema = new mongoose.Schema(
     salt: String,
 
     hobl: Array,
+    friends: Array,
+    subscribed: Array,
+    displaypicture: String,
   },
   {
     timestamps: true,

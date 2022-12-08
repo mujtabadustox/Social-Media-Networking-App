@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 
 import { UserContext } from "../UserContext";
 
+import dp from "./img.png";
+
 // design
 import {
   TextField,
@@ -22,6 +24,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 
 // functions
 import { register } from "../api/user";
+import { DocumentScanner } from "@mui/icons-material";
 
 const Signup = () => {
   const history = useHistory();
@@ -35,14 +38,14 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [hobbies, setHobbies] = useState([]);
+  const [displayImg, setDisplayImg] = useState("");
   const points = 0;
   const status = "Veteran";
 
   var abc = [];
 
-  const [userinfo, setUserInfo] = useState({
+  const [userHobbies, setuserHobbies] = useState({
     hobbies: [],
-    response: [],
   });
 
   // password validation
@@ -57,9 +60,10 @@ const Signup = () => {
 
     console.log("AAAAAAAAAAAAA222222222222222");
 
-    //setHobbies(userinfo.hobbies);
+    //setHobbies(userHobbies.hobbies);
 
-    const hobl = userinfo.hobbies;
+    const hobl = userHobbies.hobbies;
+    const displaypicture = displayImg;
     console.log("yar", hobl);
 
     try {
@@ -71,6 +75,7 @@ const Signup = () => {
         points,
         status,
         hobl,
+        displaypicture,
       });
       if (res.error) toast.error(res.error);
       else {
@@ -83,32 +88,52 @@ const Signup = () => {
     }
   };
 
-  const handleChange = (e) => {
-    // Destructuring
+  const handleChecked = (e) => {
+    console.log(e.target);
     const { value, checked } = e.target;
-    const { hobbies } = userinfo;
+    console.log(typeof checked);
+    const { hobbies } = userHobbies;
 
-    console.log(`${value} is ${checked}`);
-
-    // Case 1 : The user checks the box
     if (checked) {
-      setUserInfo({
+      //if pressed
+      setuserHobbies({
         hobbies: [...hobbies, value],
-        response: [...hobbies, value],
       });
 
-      setHobbies(userinfo.hobbies);
+      setHobbies(userHobbies.hobbies);
     }
 
-    // Case 2  : The user unchecks the box
+    //If unchecks
     else {
-      setUserInfo({
+      setuserHobbies({
         hobbies: hobbies.filter((e) => e !== value),
-        response: hobbies.filter((e) => e !== value),
       });
 
-      setHobbies(userinfo.hobbies);
+      setHobbies(userHobbies.hobbies);
     }
+  };
+
+  const handleImage = async (e) => {
+    e.preventDefault();
+    document.getElementById("myImage").click();
+  };
+
+  const readFile = (event) => {
+    event.preventDefault();
+
+    var fileReader = new FileReader();
+
+    fileReader.readAsDataURL(event.target.files[0]);
+
+    fileReader.onload = function (e) {
+      var newReadImage = new Image();
+      newReadImage.src = e.target.result;
+
+      newReadImage.onload = function () {
+        document.getElementById("newImg").src = newReadImage.src;
+        setDisplayImg(newReadImage.src);
+      };
+    };
   };
 
   return !user ? (
@@ -152,41 +177,44 @@ const Signup = () => {
       <div className="form-control">
         <h3 style={{ marginTop: "20px" }}>Hobbies</h3>
         <div style={{ display: "flex", flexDirection: "row" }}>
-          <input type="checkbox" value="Public Talks" onChange={handleChange} />
-          <p>Public Talks</p>
+          <input type="checkbox" value="Nature" onChange={handleChecked} />
+          <p>Nature</p>
           <input
             type="checkbox"
-            value="Professional Talk"
-            onChange={handleChange}
+            value="Book Reading"
+            onChange={handleChecked}
           />
-          <p>Professional Talk</p>
-          <input
-            type="checkbox"
-            value="Motivational Talks"
-            onChange={handleChange}
-          />
-          <p>Motivational Talks</p>
+          <p>Book Reading</p>
+          <input type="checkbox" value="Cycling" onChange={handleChecked} />
+          <p>Cycling</p>
         </div>
-        <div style={{ display: "flex", flexDirection: "row" }}>
+        <div>
           <input
             type="checkbox"
-            value="Professional Task"
-            onChange={handleChange}
+            value="Gun Practicing"
+            onChange={handleChecked}
           />
-          <p>Professional Task</p>
-          <input
-            type="checkbox"
-            value="Plantation Drives"
-            onChange={handleChange}
-          />
-          <p>Plantation Drives</p>
-          <input
-            type="checkbox"
-            value="Orphanage Visit"
-            onChange={handleChange}
-          />
-          <p>Orphanage Visit</p>
+          <p>Gun Practicing</p>
+          <input type="checkbox" value="Chess" onChange={handleChecked} />
+          <p>Chess</p>
+          <input type="checkbox" value="Travelling" onChange={handleChecked} />
+          <p>Travelling</p>
         </div>
+      </div>
+
+      <div className="form-control">
+        <img
+          className="rounded"
+          src={dp}
+          width="500"
+          height="200"
+          alt="show-img"
+          id="newImg"
+        ></img>
+        <div>
+          <input type="file" id="myImage" onChange={readFile} />
+        </div>
+        <Button onClick={handleImage}>Add Image</Button>
       </div>
 
       <div className="form-group">

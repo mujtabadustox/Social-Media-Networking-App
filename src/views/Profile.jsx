@@ -55,6 +55,9 @@ const Profile = () => {
           {user && (
             <span className="text-success">
               Welcome {user}!!! Profession: {data.profession} aaa
+              <div>
+                <img id="img" src={data.displaypicture} />
+              </div>
             </span>
           )}{" "}
         </h1>
