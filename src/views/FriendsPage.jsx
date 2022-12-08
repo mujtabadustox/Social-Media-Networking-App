@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-
+import "./Styles/FriendsPage.css";
 import axios from "axios";
 
 import { UserContext } from "../UserContext";
