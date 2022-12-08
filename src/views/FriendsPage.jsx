@@ -4,6 +4,8 @@ import axios from "axios";
 
 import { UserContext } from "../UserContext";
 
+import "./Styles/Friends.css";
+
 var allusers = [];
 
 const FriendsPage = () => {
