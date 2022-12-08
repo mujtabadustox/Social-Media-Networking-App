@@ -36,6 +36,8 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     salt: String,
+
+    hobl: Array,
   },
   {
     timestamps: true,

@@ -21,6 +21,7 @@ import Signup from "./views/Signup";
 import Login from "./views/Login.jsx";
 import Header from "./components/Header";
 import Profile from "./views/Profile";
+import FriendsPage from "./views/FriendsPage";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -47,6 +48,7 @@ const App = () => {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/profile" component={Profile} />
+          <Route exact path="/friendspage" component={FriendsPage} />
         </UserContext.Provider>
       </Router>
     </div>

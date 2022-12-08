@@ -68,6 +68,11 @@ const Profile = () => {
             Home
           </Link>
         )}
+        {user && (
+          <Link className="btn btn-dark" to="/friendspage">
+            Find Friends
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -34,8 +34,16 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [status, setStatus] = useState("");
-  const [points, setPoints] = useState("");
+  const [hobbies, setHobbies] = useState([]);
+  const points = 0;
+  const status = "Veteran";
+
+  var abc = [];
+
+  const [userinfo, setUserInfo] = useState({
+    hobbies: [],
+    response: [],
+  });
 
   // password validation
   let hasSixChar = password.length >= 6;
@@ -48,8 +56,11 @@ const Signup = () => {
     e.preventDefault();
 
     console.log("AAAAAAAAAAAAA222222222222222");
-    setPoints(0);
-    setStatus("Veteran");
+
+    //setHobbies(userinfo.hobbies);
+
+    const hobl = userinfo.hobbies;
+    console.log("yar", hobl);
 
     try {
       const res = await register({
@@ -59,6 +70,7 @@ const Signup = () => {
         profession,
         points,
         status,
+        hobl,
       });
       if (res.error) toast.error(res.error);
       else {
@@ -68,6 +80,34 @@ const Signup = () => {
       }
     } catch (err) {
       toast.error(err);
+    }
+  };
+
+  const handleChange = (e) => {
+    // Destructuring
+    const { value, checked } = e.target;
+    const { hobbies } = userinfo;
+
+    console.log(`${value} is ${checked}`);
+
+    // Case 1 : The user checks the box
+    if (checked) {
+      setUserInfo({
+        hobbies: [...hobbies, value],
+        response: [...hobbies, value],
+      });
+
+      setHobbies(userinfo.hobbies);
+    }
+
+    // Case 2  : The user unchecks the box
+    else {
+      setUserInfo({
+        hobbies: hobbies.filter((e) => e !== value),
+        response: hobbies.filter((e) => e !== value),
+      });
+
+      setHobbies(userinfo.hobbies);
     }
   };
 
@@ -109,6 +149,46 @@ const Signup = () => {
           onChange={(e) => setProfession(e.target.value)}
         />
       </div>
+      <div className="form-control">
+        <h3 style={{ marginTop: "20px" }}>Hobbies</h3>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <input type="checkbox" value="Public Talks" onChange={handleChange} />
+          <p>Public Talks</p>
+          <input
+            type="checkbox"
+            value="Professional Talk"
+            onChange={handleChange}
+          />
+          <p>Professional Talk</p>
+          <input
+            type="checkbox"
+            value="Motivational Talks"
+            onChange={handleChange}
+          />
+          <p>Motivational Talks</p>
+        </div>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <input
+            type="checkbox"
+            value="Professional Task"
+            onChange={handleChange}
+          />
+          <p>Professional Task</p>
+          <input
+            type="checkbox"
+            value="Plantation Drives"
+            onChange={handleChange}
+          />
+          <p>Plantation Drives</p>
+          <input
+            type="checkbox"
+            value="Orphanage Visit"
+            onChange={handleChange}
+          />
+          <p>Orphanage Visit</p>
+        </div>
+      </div>
+
       <div className="form-group">
         <FormControl variant="outlined" size="small" className="form-control">
           <InputLabel>Password</InputLabel>

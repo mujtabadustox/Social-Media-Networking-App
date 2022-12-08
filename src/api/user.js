@@ -5,8 +5,17 @@ export const register = async ({
   profession,
   points,
   status,
+  hobl,
 } = {}) => {
-  const user = { username, email, password, profession, points, status };
+  const user = {
+    username,
+    email,
+    password,
+    profession,
+    points,
+    status,
+    hobl,
+  };
 
   try {
     const res = await fetch(`http://localhost:8080/register`, {
