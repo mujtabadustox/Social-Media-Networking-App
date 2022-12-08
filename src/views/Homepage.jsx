@@ -9,12 +9,27 @@ import { toast } from "react-toastify";
 
 import { Link } from "react-router-dom";
 
+// design
+import {
+  TextField,
+  InputAdornment,
+  IconButton,
+  OutlinedInput,
+  FormControl,
+  InputLabel,
+  Button,
+  FormHelperText,
+} from "@mui/material";
+
 // functions
 import { logout, getOneUser } from "../api/user";
 
 import "./Styles/Home.css";
 
 const Homepage = () => {
+  const [username, setUsername] = useState("");
+  const [content, setContent] = useState("");
+
   const history = useHistory();
   const [data, setData] = useState({});
   const { user, setUser } = useContext(UserContext);
@@ -66,13 +81,52 @@ const Homepage = () => {
     }
   };
 
-  return (
+  return !user ? (
+    <div>
+      <h1>Home</h1>
+    </div>
+  ) : (
     <div className="container text-center">
       <div className="alert alert-light p-1">
-        <h1>
-          {user && <span className="text-success">Welcome {user}!!</span>} Have
-          a Good Day! Profession: {data.profession}
-        </h1>
+        <h1>{user && <span className="text-success">Salam {user}!!</span>}</h1>
+      </div>
+      <div className="container mt-5 mb-5 col-10 col-sm-8 col-md-6 col-lg-5">
+        <div className="card">
+          <TextField
+            size="big"
+            variant="outlined"
+            className="form-control"
+            label="What are you feeling"
+            //value={email}
+            //onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="text-center mt-4">
+          <Button
+          // variant="contained"
+          // disabled=
+          // }
+          // onClick={handleRegister}
+          >
+            Post
+          </Button>
+          <Button
+          // variant="contained"
+          // disabled=
+          // }
+          // onClick={handleRegister}
+          >
+            Post a Picture
+          </Button>
+          <Button
+          // variant="contained"
+          // disabled=
+          // }
+          // onClick={handleRegister}
+          >
+            Post a Video
+          </Button>
+        </div>
       </div>
       <div className="bottom">
         <button className="btn btn-dark" onClick={handleLogout}>
