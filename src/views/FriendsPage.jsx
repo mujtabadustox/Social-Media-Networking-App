@@ -29,6 +29,7 @@ const FriendsPage = () => {
             <p>{item.username}</p>
             <p>{item.profession}</p>
             <img id="img" src={item.displaypicture} />
+            <button id="addFriend">Add</button>
           </div>
         ))}
       </div>
