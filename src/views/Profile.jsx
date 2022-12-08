@@ -52,7 +52,11 @@ const Profile = () => {
     <div className="container text-center">
       <div className="alert alert-light p-1">
         <h1>
-          {user && <span className="text-success">Welcome {user}! aaa</span>}{" "}
+          {user && (
+            <span className="text-success">
+              Welcome {user}!!! Profession: {data.profession} aaa
+            </span>
+          )}{" "}
         </h1>
       </div>
       <div className="bottom">
