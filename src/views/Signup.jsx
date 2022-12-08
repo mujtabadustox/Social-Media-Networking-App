@@ -64,7 +64,7 @@ const Signup = () => {
       else {
         toast.success(res.message);
         // redirect the user to login
-        history.replaceState("login");
+        history.replace("login");
       }
     } catch (err) {
       toast.error(err);

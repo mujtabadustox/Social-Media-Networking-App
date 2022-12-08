@@ -7,6 +7,8 @@ const {
   login,
   logout,
   getLoggedInUser,
+  sendUsers,
+  sendOneUser,
 } = require("../controllers/user");
 
 // import middlewares
@@ -19,5 +21,6 @@ router.post("/login", login);
 router.get("/logout", logout);
 
 router.get("/user", verifyToken, userById, getLoggedInUser);
-
+router.get("/send", sendUsers);
+router.get("/sendUser/:username", sendOneUser);
 module.exports = router;

@@ -67,3 +67,29 @@ export const getUser = async () => {
     throw new Error("Please login to continue");
   }
 };
+
+// READ Students
+export const getUsers = async () => {
+  try {
+    const res = await fetch(`http://localhost:8080/send`, {
+      method: "GET",
+      credentials: "include",
+    });
+    return await res.json();
+  } catch (err) {
+    throw new Error("Please login to continue");
+  }
+};
+
+// READ Students
+export const getOneUser = async ({ username }) => {
+  try {
+    const res = await fetch(`http://localhost:8080/sendUser/${username}`, {
+      method: "GET",
+      credentials: "include",
+    });
+    return await res.json();
+  } catch (err) {
+    throw new Error("Please login to continue");
+  }
+};

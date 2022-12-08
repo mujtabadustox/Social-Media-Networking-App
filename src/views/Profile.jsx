@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
 
 import { UserContext } from "../UserContext";
 
@@ -9,11 +10,26 @@ import { Link } from "react-router-dom";
 
 // functions
 import { logout } from "../api/user";
+import { getUser } from "../api/user";
 
 const Profile = () => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
-  const { profession, setProfession } = useContext(UserContext);
+
+  const abc = getUser();
+
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const getOneUser = async () => {
+      const response = await axios.get(
+        `http://localhost:8080/sendUser/${user}`
+      );
+      setData(response.data.data);
+      console.log("aaa", response.data.data);
+    };
+    getOneUser();
+  }, []);
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -36,12 +52,7 @@ const Profile = () => {
     <div className="container text-center">
       <div className="alert alert-light p-1">
         <h1>
-          {user && (
-            <span className="text-success">
-              Welcome {user}!! profession {profession}
-            </span>
-          )}{" "}
-          Profile
+          {user && <span className="text-success">Welcome {user}! aaa</span>}{" "}
         </h1>
       </div>
       <div className="bottom">

@@ -25,12 +25,10 @@ const userSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      required: true,
       trim: true,
     },
     points: {
       type: Number,
-      required: true,
       trim: true,
     },
     hashedPassword: {

@@ -84,3 +84,34 @@ exports.getLoggedInUser = (req, res) => {
     username,
   });
 };
+
+// READ Students
+exports.sendUsers = (req, res) => {
+  User.find((error, data) => {
+    if (error) {
+      return res.status(401).json({
+        error: "Retrieve Failed",
+      });
+    } else {
+      return res.json({
+        data,
+      });
+    }
+  });
+};
+
+// READ Students
+exports.sendOneUser = (req, res) => {
+  User.findOne({ username: { $eq: req.params.username } }, (error, data) => {
+    if (error) {
+      return res.status(401).json({
+        error: "Retrieve Failed",
+      });
+    } else {
+      return res.json({
+        message: "Lmao",
+        data,
+      });
+    }
+  });
+};

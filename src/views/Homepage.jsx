@@ -1,4 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
+
+import axios from "axios";
 
 import { UserContext } from "../UserContext";
 
@@ -8,14 +10,44 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
 // functions
-import { logout } from "../api/user";
+import { logout, getOneUser } from "../api/user";
 
 import "./Styles/Home.css";
 
 const Homepage = () => {
   const history = useHistory();
+  const [data, setData] = useState({});
   const { user, setUser } = useContext(UserContext);
-  const { profession, setProfession } = useContext(UserContext);
+
+  const [profession, setProfession] = useState({});
+
+  useEffect(() => {
+    const getOneUser = async () => {
+      const response = await axios.get(
+        `http://localhost:8080/sendUser/${user}`
+      );
+      setData(response.data.data);
+      console.log("aaa", response.data.data);
+    };
+    getOneUser();
+  }, []);
+
+  const handleProfile = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await getOneUser(user);
+      if (res.error) toast.error(res.error);
+      else {
+        toast.success(res.message);
+        //setData1(res.data);
+        // redirect the user to home
+        history.replace("/");
+      }
+    } catch (err) {
+      toast.error(err);
+    }
+  };
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -39,7 +71,7 @@ const Homepage = () => {
       <div className="alert alert-light p-1">
         <h1>
           {user && <span className="text-success">Welcome {user}!!</span>} Have
-          a Good Day! {console.log(profession)}
+          a Good Day! Profession: {data.profession}
         </h1>
       </div>
       <div className="bottom">
