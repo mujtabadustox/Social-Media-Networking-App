@@ -104,3 +104,18 @@ export const getOneUser = async ({ username }) => {
     throw new Error("Please login to continue");
   }
 };
+
+export const addFriends = async ({ username, friendusername }) => {
+  try {
+    const res = await fetch(
+      `http://localhost:8080/addFriends/${username}/${friendusername}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    return await res.json();
+  } catch (err) {
+    throw new Error("Error Adding");
+  }
+};

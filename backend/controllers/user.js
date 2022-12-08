@@ -115,3 +115,15 @@ exports.sendOneUser = (req, res) => {
     }
   });
 };
+
+exports.addFriends = async (req, res) => {
+  const following = await User.findOne({ username: req.params.friendusername });
+  const user = await User.findOneAndUpdate(
+    { username: req.params.username },
+    { $push: { friends: req.params.friendusername } }
+  );
+  user.save();
+  console.log("USER", user);
+  console.log("following", following);
+  return res.send(user);
+};

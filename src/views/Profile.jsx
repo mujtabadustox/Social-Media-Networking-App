@@ -54,7 +54,9 @@ const Profile = () => {
         <h1>
           {user && (
             <span className="text-success">
-              Welcome {user}!!! Profession: {data.profession} aaa
+              {/* data.friends is an array */}
+              Welcome {user}!!! Profession: {data.profession} aaa friends:
+              {data.friends}
               <div>
                 <img id="img" src={data.displaypicture} />
               </div>
