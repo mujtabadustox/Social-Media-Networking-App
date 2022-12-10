@@ -9,6 +9,9 @@ import { toast } from "react-toastify";
 
 import { Link } from "react-router-dom";
 
+import "./Styles/Home.css";
+import dp from "./img.png";
+
 // design
 import {
   TextField,
@@ -23,18 +26,66 @@ import {
 
 // functions
 import { logout, getOneUser } from "../api/user";
-
-import "./Styles/Home.css";
+import { posting } from "../api/post";
 
 const Homepage = () => {
-  const [username, setUsername] = useState("");
-  const [content, setContent] = useState("");
+  const [photoSrc, setPhotoSrc] = useState("");
+  const [videoSrc, setVideoSrc] = useState("");
+  const [reaction, setReaction] = useState("");
+  const [description, setDescription] = useState("");
 
   const history = useHistory();
   const [data, setData] = useState({});
   const { user, setUser } = useContext(UserContext);
 
-  const [profession, setProfession] = useState({});
+  //////
+
+  const handlePosting = async (e) => {
+    e.preventDefault();
+
+    console.log("Image");
+    let username = user;
+
+    try {
+      const res = await posting({
+        username,
+        photoSrc,
+        videoSrc,
+        description,
+      });
+      if (res.error) toast.error(res.error);
+      else {
+        toast.success(res.message);
+        // redirect the user to login
+        history.replace("/content");
+      }
+    } catch (err) {
+      toast.error(err);
+    }
+  };
+
+  const handleImage = async (e) => {
+    e.preventDefault();
+    document.getElementById("myImage").click();
+  };
+
+  const readFile = (event) => {
+    event.preventDefault();
+
+    var fileReader = new FileReader();
+
+    fileReader.readAsDataURL(event.target.files[0]);
+
+    fileReader.onload = function (e) {
+      var newReadImage = new Image();
+      newReadImage.src = e.target.result;
+
+      newReadImage.onload = function () {
+        document.getElementById("newImg").src = newReadImage.src;
+        setPhotoSrc(newReadImage.src);
+      };
+    };
+  };
 
   useEffect(() => {
     const getOneUser = async () => {
@@ -46,23 +97,6 @@ const Homepage = () => {
     };
     getOneUser();
   }, []);
-
-  const handleProfile = async (e) => {
-    e.preventDefault();
-
-    try {
-      const res = await getOneUser(user);
-      if (res.error) toast.error(res.error);
-      else {
-        toast.success(res.message);
-        //setData1(res.data);
-        // redirect the user to home
-        history.replace("/");
-      }
-    } catch (err) {
-      toast.error(err);
-    }
-  };
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -97,9 +131,20 @@ const Homepage = () => {
             variant="outlined"
             className="form-control"
             label="What are you feeling"
-            //value={email}
-            //onChange={(e) => setEmail(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
+        </div>
+        <div>
+          <img
+            className="rounded"
+            src={dp}
+            width="500"
+            height="200"
+            alt="show-img"
+            id="newImg"
+          ></img>
+          <input type="file" id="myImage" onChange={readFile} />
         </div>
         <div className="text-center mt-4">
           <Button
@@ -108,25 +153,20 @@ const Homepage = () => {
           // }
           // onClick={handleRegister}
           >
-            Post
+            Post a Video
           </Button>
           <Button
-          // variant="contained"
-          // disabled=
-          // }
-          // onClick={handleRegister}
+            // variant="contained"
+            // disabled=
+            // }
+            onClick={handleImage}
           >
             Post a Picture
           </Button>
-          <Button
-          // variant="contained"
-          // disabled=
-          // }
-          // onClick={handleRegister}
-          >
-            Post a Video
-          </Button>
         </div>
+        <Button variant="contained" onClick={handlePosting}>
+          Submit
+        </Button>
       </div>
       <div className="bottom">
         <button className="btn btn-dark" onClick={handleLogout}>

@@ -13,12 +13,12 @@ const app = express();
 
 // db
 mongoose
-	.connect(process.env.MONGO_URI, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	})
-	.then(() => console.log("DB CONNECTED"))
-	.catch((err) => console.log("DB CONNECTION ERROR", err));
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("DB CONNECTED"))
+  .catch((err) => console.log("DB CONNECTION ERROR", err));
 
 // middleware
 app.use(morgan("dev"));
@@ -30,12 +30,14 @@ app.use(expressValidator());
 
 // routes
 const userRoutes = require("./routes/user");
+const postRoutes = require("./routes/post");
 app.use("/", userRoutes);
+app.use("/", postRoutes);
 
 // port
 const port = process.env.PORT || 8080;
 
 // listener
 const server = app.listen(port, () =>
-	console.log(`Server is running on port ${port}`)
+  console.log(`Server is running on port ${port}`)
 );

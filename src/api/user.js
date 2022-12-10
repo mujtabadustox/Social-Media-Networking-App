@@ -34,7 +34,6 @@ export const register = async ({
     throw new Error(`Cannot register at this time. ${err}`);
   }
 };
-
 export const login = async ({ email, password } = {}) => {
   const user = { email, password };
 
