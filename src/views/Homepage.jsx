@@ -69,6 +69,11 @@ const Homepage = () => {
     document.getElementById("myImage").click();
   };
 
+  const handleVideo = async (e) => {
+    e.preventDefault();
+    document.getElementById("myVideo").click();
+  };
+
   const readFile = (event) => {
     event.preventDefault();
 
@@ -85,6 +90,11 @@ const Homepage = () => {
         setPhotoSrc(newReadImage.src);
       };
     };
+  };
+
+  const readVideo = (event) => {
+    const file = event.target.files[0];
+    setVideoSrc(file);
   };
 
   useEffect(() => {
@@ -145,14 +155,10 @@ const Homepage = () => {
             id="newImg"
           ></img>
           <input type="file" id="myImage" onChange={readFile} />
+          <input type="file" id="myVideo" onChange={readVideo} />
         </div>
         <div className="text-center mt-4">
-          <Button
-          // variant="contained"
-          // disabled=
-          // }
-          // onClick={handleRegister}
-          >
+          <Button variant="contained" onClick={handleVideo}>
             Post a Video
           </Button>
           <Button
@@ -168,6 +174,12 @@ const Homepage = () => {
           Submit
         </Button>
       </div>
+      <Link className="btn btn-dark" to="/content">
+        Show Friend Posts
+      </Link>
+      <Link className="btn btn-dark" to="/createEvent">
+        Add an Event
+      </Link>
       <div className="bottom">
         <button className="btn btn-dark" onClick={handleLogout}>
           Logout

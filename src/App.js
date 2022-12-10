@@ -23,6 +23,7 @@ import Header from "./components/Header";
 import Profile from "./views/Profile";
 import FriendsPage from "./views/FriendsPage";
 import Content from "./views/Content";
+import EventForm from "./views/EventForm";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -51,6 +52,7 @@ const App = () => {
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/friendspage" component={FriendsPage} />
           <Route exact path="/content" component={Content} />
+          <Route exact path="/createEvent" component={EventForm} />
         </UserContext.Provider>
       </Router>
     </div>
