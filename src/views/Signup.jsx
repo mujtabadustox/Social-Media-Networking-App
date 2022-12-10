@@ -6,6 +6,12 @@ import { UserContext } from "../UserContext";
 
 import dp from "./img.png";
 
+import Checkbox from "@mui/material/Checkbox";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+
 // design
 import {
   TextField,
@@ -16,6 +22,7 @@ import {
   InputLabel,
   Button,
   FormHelperText,
+  FormControlLabel,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -177,29 +184,133 @@ const Signup = () => {
       <div className="form-control">
         <h3 style={{ marginTop: "20px" }}>Hobbies</h3>
         <div style={{ display: "flex", flexDirection: "row" }}>
-          <input type="checkbox" value="Nature" onChange={handleChecked} />
-          <p>Nature</p>
-          <input
-            type="checkbox"
-            value="Book Reading"
-            onChange={handleChecked}
-          />
-          <p>Book Reading</p>
-          <input type="checkbox" value="Cycling" onChange={handleChecked} />
-          <p>Cycling</p>
+          <div>
+            <FormControlLabel
+              value="Public Talks"
+              control={
+                <Checkbox
+                  icon={<FavoriteBorder />}
+                  checkedIcon={<Favorite />}
+                  onChange={handleChecked}
+                />
+              }
+              label="Public Talks"
+              labelPlacement="right"
+            />
+            <FormControlLabel
+              value="Motivational Talks"
+              control={
+                <Checkbox
+                  icon={<FavoriteBorder />}
+                  checkedIcon={<Favorite />}
+                  onChange={handleChecked}
+                />
+              }
+              label="Motivational Talks"
+              labelPlacement="right"
+            />
+            <FormControlLabel
+              value="Professional Talk"
+              control={
+                <Checkbox
+                  icon={<FavoriteBorder />}
+                  checkedIcon={<Favorite />}
+                  onChange={handleChecked}
+                />
+              }
+              label="Professional Talk"
+              labelPlacement="right"
+            />
+            <FormControlLabel
+              value="Professional Task"
+              control={
+                <Checkbox
+                  icon={<FavoriteBorder />}
+                  checkedIcon={<Favorite />}
+                  onChange={handleChecked}
+                />
+              }
+              label="Professional Task"
+              labelPlacement="right"
+            />
+            <FormControlLabel
+              value="Plantation Drives"
+              control={
+                <Checkbox
+                  icon={<FavoriteBorder />}
+                  checkedIcon={<Favorite />}
+                  onChange={handleChecked}
+                />
+              }
+              label="Plantation Drives"
+              labelPlacement="right"
+            />
+          </div>
+          <div>
+            <FormControlLabel
+              value="Orphanage Visit"
+              control={
+                <Checkbox
+                  icon={<FavoriteBorder />}
+                  checkedIcon={<Favorite />}
+                  onChange={handleChecked}
+                />
+              }
+              label="Orphanage Visit"
+              labelPlacement="right"
+            />
+            <FormControlLabel
+              value="Hospital Visit"
+              control={
+                <Checkbox
+                  icon={<FavoriteBorder />}
+                  checkedIcon={<Favorite />}
+                  onChange={handleChecked}
+                />
+              }
+              label="Hospital Visit"
+              labelPlacement="right"
+            />
+            <FormControlLabel
+              value="Recreational Visit"
+              control={
+                <Checkbox
+                  icon={<FavoriteBorder />}
+                  checkedIcon={<Favorite />}
+                  onChange={handleChecked}
+                />
+              }
+              label="Recreational Visit"
+              labelPlacement="right"
+            />
+            <FormControlLabel
+              value="Old Home Visit"
+              control={
+                <Checkbox
+                  icon={<FavoriteBorder />}
+                  checkedIcon={<Favorite />}
+                  onChange={handleChecked}
+                />
+              }
+              label="Old Home Visit"
+              labelPlacement="right"
+            />
+
+            <FormControlLabel
+              value="Book Reading"
+              control={
+                <Checkbox
+                  icon={<FavoriteBorder />}
+                  checkedIcon={<Favorite />}
+                  onChange={handleChecked}
+                />
+              }
+              label="Book Reading"
+              labelPlacement="right"
+            />
+          </div>
         </div>
-        <div>
-          <input
-            type="checkbox"
-            value="Gun Practicing"
-            onChange={handleChecked}
-          />
-          <p>Gun Practicing</p>
-          <input type="checkbox" value="Chess" onChange={handleChecked} />
-          <p>Chess</p>
-          <input type="checkbox" value="Travelling" onChange={handleChecked} />
-          <p>Travelling</p>
-        </div>
+        <div></div>
       </div>
 
       <div className="form-control">

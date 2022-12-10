@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema(
 
     hobl: Array,
     friends: Array,
-    subscribed: Array,
+    interested: Array,
     displaypicture: String,
   },
   {

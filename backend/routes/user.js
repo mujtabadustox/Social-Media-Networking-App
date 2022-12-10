@@ -10,6 +10,7 @@ const {
   sendUsers,
   sendOneUser,
   addFriends,
+  addEvents,
 } = require("../controllers/user");
 
 // import middlewares
@@ -25,5 +26,6 @@ router.get("/user", verifyToken, userById, getLoggedInUser);
 router.get("/send", sendUsers);
 router.get("/sendUser/:username", sendOneUser);
 router.get("/addFriends/:username/:friendusername", addFriends);
+router.get("/addEvents/:username/:eventname", addEvents);
 
 module.exports = router;

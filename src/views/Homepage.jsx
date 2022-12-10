@@ -180,6 +180,9 @@ const Homepage = () => {
       <Link className="btn btn-dark" to="/createEvent">
         Add an Event
       </Link>
+      <Link className="btn btn-dark" to="/showevents">
+        Show Events
+      </Link>
       <div className="bottom">
         <button className="btn btn-dark" onClick={handleLogout}>
           Logout

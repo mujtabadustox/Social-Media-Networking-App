@@ -120,7 +120,7 @@ const EventForm = () => {
           <select value={type} onChange={(e) => setType(e.target.value)}>
             <option value="Public Talks">Public Talks</option>
             <option value="Motivational Talks">Motivational Talks</option>
-            <option value="Professional Talks">Professional Talk</option>
+            <option value="Professional Talk">Professional Talk</option>
             <option value="Professional Task">Professional Task</option>
             <option value="Plantation Drives">Plantation Drives</option>
             <option value="Orphanage Visit">Orphanage Visit</option>

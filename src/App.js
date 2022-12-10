@@ -24,6 +24,7 @@ import Profile from "./views/Profile";
 import FriendsPage from "./views/FriendsPage";
 import Content from "./views/Content";
 import EventForm from "./views/EventForm";
+import Events from "./views/Events";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -53,6 +54,7 @@ const App = () => {
           <Route exact path="/friendspage" component={FriendsPage} />
           <Route exact path="/content" component={Content} />
           <Route exact path="/createEvent" component={EventForm} />
+          <Route exact path="/showevents" component={Events} />
         </UserContext.Provider>
       </Router>
     </div>

@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Event = require("../models/event");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -125,5 +126,21 @@ exports.addFriends = async (req, res) => {
   user.save();
   console.log("USER", user);
   console.log("following", following);
+  return res.send(user);
+};
+
+exports.addEvents = async (req, res) => {
+  const user = await User.findOneAndUpdate(
+    { username: req.params.username },
+    { $push: { interested: req.params.eventname } }
+  );
+
+  const event = await Event.findOneAndUpdate(
+    { eventname: req.params.eventname },
+    { $push: { going: req.params.username } }
+  );
+  user.save();
+  event.save();
+  console.log("USER", user);
   return res.send(user);
 };
