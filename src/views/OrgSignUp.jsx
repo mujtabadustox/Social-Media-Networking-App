@@ -459,7 +459,7 @@ const OrgSignUp = () => {
       </div>
     </div>
   ) : (
-    <Redirect to="/" />
+    <Redirect to="/orghome" />
   );
 };
 
