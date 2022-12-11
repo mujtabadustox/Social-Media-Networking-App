@@ -1,14 +1,14 @@
-const User = require("../models/user");
+const Organization = require("../models/organization");
 const Event = require("../models/event");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-exports.register = async (req, res) => {
+exports.registerOrg = async (req, res) => {
   // check if user already exists
-  const usernameExists = await User.findOne({
+  const usernameExists = await Organization.findOne({
     username: req.body.username,
   });
-  const emailExists = await User.findOne({
+  const emailExists = await Organization.findOne({
     email: req.body.email,
   });
 
@@ -24,35 +24,35 @@ exports.register = async (req, res) => {
   }
 
   // if new user, create a new user
-  const user = new User(req.body);
-  await user.save();
+  const organization = new Organization(req.body);
+  await organization.save();
 
   res.status(201).json({
     message: "Signup Successful! Please Login to proceed",
   });
 };
 
-exports.login = async (req, res) => {
+exports.loginOrg = async (req, res) => {
   // find the user based on email
   const { email, password } = req.body;
 
-  await User.findOne({ email }).exec((err, user) => {
+  await Organization.findOne({ email }).exec((err, organization) => {
     // if err or no user
-    if (err || !user) {
+    if (err || !organization) {
       return res.status(401).json({
         error: "Invalid Credentials",
       });
     }
 
     // if user is found, we use the authenticate method from the model
-    if (!user.authenticate(password)) {
+    if (!organization.authenticate(password)) {
       return res.status(401).json({
         error: "Invalid email or password",
       });
     }
 
     // generate a token with user id and jwt secret
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ _id: organization._id }, process.env.JWT_SECRET, {
       expiresIn: "24h",
     });
 
@@ -60,7 +60,7 @@ exports.login = async (req, res) => {
     res.cookie("jwt", token, { expire: new Date() + 9999, httpOnly: true });
 
     // return the response with user
-    const { username } = user;
+    const { username } = organization;
     return res.json({
       message: "Login Successful!",
       username,
@@ -68,7 +68,7 @@ exports.login = async (req, res) => {
   });
 };
 
-exports.logout = (req, res) => {
+exports.logoutOrg = (req, res) => {
   // clear the cookie
   res.clearCookie("jwt");
 
@@ -77,8 +77,8 @@ exports.logout = (req, res) => {
   });
 };
 
-exports.getLoggedInUser = (req, res) => {
-  const { username } = req.user;
+exports.getLoggedInOrg = (req, res) => {
+  const { username } = req.organization;
 
   return res.status(200).json({
     message: "User is still logged in",
@@ -87,8 +87,8 @@ exports.getLoggedInUser = (req, res) => {
 };
 
 // READ Students
-exports.sendUsers = (req, res) => {
-  User.find((error, data) => {
+exports.getOrg = (req, res) => {
+  Organization.find((error, data) => {
     if (error) {
       return res.status(401).json({
         error: "Retrieve Failed",
@@ -102,35 +102,40 @@ exports.sendUsers = (req, res) => {
 };
 
 // READ Students
-exports.sendOneUser = (req, res) => {
-  User.findOne({ username: { $eq: req.params.username } }, (error, data) => {
-    if (error) {
-      return res.status(401).json({
-        error: "Retrieve Failed",
-      });
-    } else {
-      return res.json({
-        message: "Lmao",
-        data,
-      });
+exports.getOneOrg = (req, res) => {
+  Organization.findOne(
+    { username: { $eq: req.params.username } },
+    (error, data) => {
+      if (error) {
+        return res.status(401).json({
+          error: "Retrieve Failed",
+        });
+      } else {
+        return res.json({
+          message: "Lmao",
+          data,
+        });
+      }
     }
-  });
+  );
 };
 
-exports.addFriends = async (req, res) => {
-  const following = await User.findOne({ username: req.params.friendusername });
-  const user = await User.findOneAndUpdate(
+exports.addFollowing = async (req, res) => {
+  const following = await Organization.findOne({
+    username: req.params.friendusername,
+  });
+  const organization = await Organization.findOneAndUpdate(
     { username: req.params.username },
     { $push: { friends: req.params.friendusername } }
   );
-  user.save();
-  console.log("USER", user);
+  organization.save();
+  console.log("USER", organization);
   console.log("following", following);
-  return res.send(user);
+  return res.send(organization);
 };
 
-exports.addEvents = async (req, res) => {
-  const user = await User.findOneAndUpdate(
+exports.followEvents = async (req, res) => {
+  const organization = await Organization.findOneAndUpdate(
     { username: req.params.username },
     { $push: { interested: req.params.eventname } }
   );
@@ -139,14 +144,14 @@ exports.addEvents = async (req, res) => {
     { eventname: req.params.eventname },
     { $push: { going: req.params.username } }
   );
-  user.save();
+  organization.save();
   event.save();
-  console.log("USER", user);
-  return res.send(user);
+  console.log("USER", organization);
+  return res.send(organization);
 };
 
-exports.addInvite = async (req, res) => {
-  const user = await User.findOneAndUpdate(
+exports.sendInvite = async (req, res) => {
+  const organization = await Organization.findOneAndUpdate(
     { username: req.params.friendusername },
     { $push: { invitedTo: req.params.eventname } }
   );
@@ -155,8 +160,8 @@ exports.addInvite = async (req, res) => {
     { eventname: req.params.eventname },
     { $push: { invited: req.params.friendusername } }
   );
-  user.save();
+  organization.save();
   event.save();
-  console.log("USER", user);
-  return res.send(user);
+  console.log("USER", organization);
+  return res.send(organization);
 };

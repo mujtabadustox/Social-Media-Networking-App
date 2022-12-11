@@ -27,6 +27,10 @@ import EventForm from "./views/EventForm";
 import Events from "./views/Events";
 import EventsType from "./views/EventsType";
 import SearchEvents from "./views/SearchEvents";
+import OrgSignUp from "./views/OrgSignUp";
+import LoginOrg from "./views/LoginOrg";
+import OrgProfile from "./views/OrgProfile";
+import OrgHome from "./views/OrgHome";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -59,6 +63,10 @@ const App = () => {
           <Route exact path="/showevents" component={Events} />
           <Route exact path="/eventstypes" component={EventsType} />
           <Route exact path="/searchevents" component={SearchEvents} />
+          <Route exact path="/orgsignup" component={OrgSignUp} />
+          <Route exact path="/orglogin" component={LoginOrg} />
+          <Route exact path="/orghome" component={OrgHome} />
+          <Route exact path="/orgprofile" component={OrgProfile} />
         </UserContext.Provider>
       </Router>
     </div>

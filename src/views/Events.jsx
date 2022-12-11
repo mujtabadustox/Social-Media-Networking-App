@@ -66,6 +66,16 @@ const Events = () => {
     //window.location.reload();
   };
 
+  const onInvited = async (e) => {
+    console.log("USSS", user);
+    console.log("FOL", e.target.id);
+    const response = await axios.get(
+      `http://localhost:8080/addInvite/${invitedFriend}/${e.target.id}`
+    );
+    console.log(response.data);
+    //window.location.reload();
+  };
+
   return (
     <div>
       <div className="text-center mb-5 alert alert-primary">
@@ -160,6 +170,17 @@ const Events = () => {
               >
                 Interested
               </Button>
+              <Button
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                variant="primary"
+                id={item?.eventname}
+                onClick={onInvited}
+              >
+                Invite
+              </Button>
 
               <div className="form-group">
                 <InputLabel>
@@ -174,17 +195,6 @@ const Events = () => {
                       <option value={item}>{item}</option>
                     ))}
                 </select>
-                <Button
-                  style={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  variant="primary"
-                  //id={item?.eventname}
-                  //onClick={onInterested}
-                >
-                  Invite
-                </Button>
               </div>
             </Card>
           </div>

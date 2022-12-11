@@ -54,6 +54,21 @@ const Header = () => {
                 Login
               </Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/orgsignup">
+                Organization Signup
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/orglogin">
+                Organization Login
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/orghome">
+                Organization Home
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>

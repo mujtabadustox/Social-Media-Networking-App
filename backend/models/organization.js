@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const uuidv1 = require("uuidv1");
 const crypto = require("crypto");
 
-const userSchema = new mongoose.Schema(
+const organizationSchema = new mongoose.Schema(
   {
     username: {
       type: String,
@@ -38,10 +38,11 @@ const userSchema = new mongoose.Schema(
     salt: String,
 
     hobl: Array,
-    friends: Array,
+    members: Array,
     interested: Array,
     displaypicture: String,
     invitedTo: Array,
+    following: Array,
   },
   {
     timestamps: true,
@@ -49,7 +50,7 @@ const userSchema = new mongoose.Schema(
 );
 
 // virtual field
-userSchema.virtual("password").set(function (password) {
+organizationSchema.virtual("password").set(function (password) {
   // create temp variable called _password
   this._password = password;
 
@@ -61,7 +62,7 @@ userSchema.virtual("password").set(function (password) {
 });
 
 // methods
-userSchema.methods = {
+organizationSchema.methods = {
   encryptPassword: function (password) {
     if (!password) return "";
 
@@ -79,4 +80,4 @@ userSchema.methods = {
   },
 };
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Organization", organizationSchema);

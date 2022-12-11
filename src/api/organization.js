@@ -1,4 +1,4 @@
-export const register = async ({
+export const registerOrg = async ({
   username,
   email,
   password,
@@ -8,7 +8,7 @@ export const register = async ({
   hobl,
   displaypicture,
 } = {}) => {
-  const user = {
+  const organization = {
     username,
     email,
     password,
@@ -20,13 +20,13 @@ export const register = async ({
   };
 
   try {
-    const res = await fetch(`http://localhost:8080/register`, {
+    const res = await fetch(`http://localhost:8080/registerOrg`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(organization),
     });
 
     return await res.json();
@@ -34,18 +34,18 @@ export const register = async ({
     throw new Error(`Cannot register at this time. ${err}`);
   }
 };
-export const login = async ({ email, password } = {}) => {
-  const user = { email, password };
+export const loginOrg = async ({ email, password } = {}) => {
+  const organization = { email, password };
 
   try {
-    const res = await fetch(`http://localhost:8080/login`, {
+    const res = await fetch(`http://localhost:8080/loginOrg`, {
       method: "POST",
       credentials: "include",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(organization),
     });
 
     return await res.json();
@@ -54,9 +54,9 @@ export const login = async ({ email, password } = {}) => {
   }
 };
 
-export const logout = async () => {
+export const logoutOrg = async () => {
   try {
-    const res = await fetch(`http://localhost:8080/logout`, {
+    const res = await fetch(`http://localhost:8080/logoutOrg`, {
       method: "GET",
       credentials: "include",
     });
@@ -66,9 +66,9 @@ export const logout = async () => {
   }
 };
 
-export const getUser = async () => {
+export const getOrg = async () => {
   try {
-    const res = await fetch(`http://localhost:8080/user`, {
+    const res = await fetch(`http://localhost:8080/organization`, {
       method: "GET",
       credentials: "include",
     });
@@ -79,9 +79,9 @@ export const getUser = async () => {
 };
 
 // READ Students
-export const getUsers = async () => {
+export const getOneOrg = async ({ username }) => {
   try {
-    const res = await fetch(`http://localhost:8080/send`, {
+    const res = await fetch(`http://localhost:8080/sendOrg/${username}`, {
       method: "GET",
       credentials: "include",
     });
@@ -91,23 +91,10 @@ export const getUsers = async () => {
   }
 };
 
-// READ Students
-export const getOneUser = async ({ username }) => {
-  try {
-    const res = await fetch(`http://localhost:8080/sendUser/${username}`, {
-      method: "GET",
-      credentials: "include",
-    });
-    return await res.json();
-  } catch (err) {
-    throw new Error("Please login to continue");
-  }
-};
-
-export const addFriends = async ({ username, friendusername }) => {
+export const addFollowing = async ({ username, friendorganizationname }) => {
   try {
     const res = await fetch(
-      `http://localhost:8080/addFriends/${username}/${friendusername}`,
+      `http://localhost:8080/addFollowing/${username}/${friendorganizationname}`,
       {
         method: "GET",
         credentials: "include",
@@ -119,10 +106,10 @@ export const addFriends = async ({ username, friendusername }) => {
   }
 };
 
-export const addEvents = async ({ username, eventname }) => {
+export const followEvents = async ({ username, eventname }) => {
   try {
     const res = await fetch(
-      `http://localhost:8080/addEvents/${username}/${eventname}`,
+      `http://localhost:8080/followEvents/${username}/${eventname}`,
       {
         method: "GET",
         credentials: "include",
@@ -134,10 +121,10 @@ export const addEvents = async ({ username, eventname }) => {
   }
 };
 
-export const addInvite = async ({ friendusername, eventname }) => {
+export const sendInvite = async ({ friendorganizationname, eventname }) => {
   try {
     const res = await fetch(
-      `http://localhost:8080/addInvite/${friendusername}/${eventname}`,
+      `http://localhost:8080/sendInvite/${friendorganizationname}/${eventname}`,
       {
         method: "GET",
         credentials: "include",
