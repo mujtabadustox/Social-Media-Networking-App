@@ -25,6 +25,8 @@ import FriendsPage from "./views/FriendsPage";
 import Content from "./views/Content";
 import EventForm from "./views/EventForm";
 import Events from "./views/Events";
+import EventsType from "./views/EventsType";
+import SearchEvents from "./views/SearchEvents";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -55,6 +57,8 @@ const App = () => {
           <Route exact path="/content" component={Content} />
           <Route exact path="/createEvent" component={EventForm} />
           <Route exact path="/showevents" component={Events} />
+          <Route exact path="/eventstypes" component={EventsType} />
+          <Route exact path="/searchevents" component={SearchEvents} />
         </UserContext.Provider>
       </Router>
     </div>

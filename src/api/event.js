@@ -37,7 +37,7 @@ export const uploadEvent = async ({
   }
 };
 
-export const getPosts = async () => {
+export const getEvents = async () => {
   try {
     const res = await fetch(`http://localhost:8080/getEvents`, {
       method: "GET",
@@ -63,10 +63,13 @@ export const getOneEvent = async ({ username }) => {
 
 export const getOneEventLoc = async ({ location }) => {
   try {
-    const res = await fetch(`http://localhost:8080/getOneEvent/${location}`, {
-      method: "GET",
-      credentials: "include",
-    });
+    const res = await fetch(
+      `http://localhost:8080/getOneEventLoc/${location}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
     return await res.json();
   } catch (err) {
     throw new Error("Please login to continue");
@@ -75,7 +78,7 @@ export const getOneEventLoc = async ({ location }) => {
 
 export const getOneEventTp = async ({ type }) => {
   try {
-    const res = await fetch(`http://localhost:8080/getOneEvent/${type}`, {
+    const res = await fetch(`http://localhost:8080/getOneEventTp/${type}`, {
       method: "GET",
       credentials: "include",
     });

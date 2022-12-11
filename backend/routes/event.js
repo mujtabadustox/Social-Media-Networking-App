@@ -14,7 +14,7 @@ const {
 router.post("/uploadEvent", uploadEvent);
 router.get("/getEvents", getEvents);
 router.get("/getOneEvent/:username", getOneEvent);
-router.get("/getOneEvent/:location", getOneEventLoc);
-router.get("/getOneEvent/:type", getOneEventTp);
+router.get("/getOneEventLoc/:location", getOneEventLoc);
+router.get("/getOneEventTp/:type", getOneEventTp);
 
 module.exports = router;

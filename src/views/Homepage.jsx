@@ -183,6 +183,12 @@ const Homepage = () => {
       <Link className="btn btn-dark" to="/showevents">
         Show Events
       </Link>
+      <Link className="btn btn-dark" to="/eventstypes">
+        Show Events (By Hobbies)
+      </Link>
+      <Link className="btn btn-dark" to="/searchevents">
+        Search Events
+      </Link>
       <div className="bottom">
         <button className="btn btn-dark" onClick={handleLogout}>
           Logout
