@@ -129,6 +129,18 @@ exports.addFriends = async (req, res) => {
   return res.send(user);
 };
 
+exports.removeFriends = async (req, res) => {
+  const following = await User.findOne({ username: req.params.friendusername });
+  const user = await User.findOneAndUpdate(
+    { username: req.params.username },
+    { $pull: { friends: req.params.friendusername } }
+  );
+  user.save();
+  console.log("USER", user);
+  console.log("following", following);
+  return res.send(user);
+};
+
 exports.addEvents = async (req, res) => {
   const user = await User.findOneAndUpdate(
     { username: req.params.username },

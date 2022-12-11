@@ -8,15 +8,12 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Image from "react-bootstrap/Image";
 
-import { TextField, InputLabel } from "@mui/material";
-
 var allEvents = [];
+var allTypeEvents = [];
 
-const Events = () => {
+const OrgEventsType = () => {
   const [data, setData] = useState({});
-  const [info, setInfo] = useState({});
   const { user, setUser } = useContext(UserContext);
-  const [invitedFriend, setInvitedFriend] = useState("");
 
   function uniq_fast(a) {
     var seen = {};
@@ -36,41 +33,39 @@ const Events = () => {
 
   useEffect(() => {
     const getEvents = async () => {
+      console.log("user:", user);
       const response3 = await axios.get(
-        `http://localhost:8080/sendUser/${user}`
+        `http://localhost:8080/sendOrg/${user}`
       );
-      setInfo(response3.data.data);
+
+      setData(response3.data.data);
+
+      //console.log("length:", data.hobl.length);
 
       const response = await axios.get(`http://localhost:8080/getEvents`);
-      response.data.data.map((item) => {
-        if (item) {
-          //console.log(user);
-          allEvents.push(item);
-        }
-      });
-      setData(response.data.data);
+
+      response.data.data.map((item) => allEvents.push(item));
+
       //console.log("aaa", response.data.data);
     };
     getEvents();
   }, []);
 
-  allEvents = uniq_fast(allEvents);
+  let length = data?.hobl?.length;
+  allEvents.map((item, index) => {
+    for (let i = 0; i < length; i++) {
+      if (data.hobl[i] == item?.type) {
+        allTypeEvents.push(item);
+      }
+    }
+  });
+  allTypeEvents = uniq_fast(allTypeEvents);
 
   const onInterested = async (e) => {
     console.log("USSS", user);
     console.log("FOL", e.target.id);
     const response = await axios.get(
-      `http://localhost:8080/addEvents/${user}/${e.target.id}`
-    );
-    console.log(response.data);
-    //window.location.reload();
-  };
-
-  const onInvited = async (e) => {
-    console.log("USSS", user);
-    console.log("FOL", e.target.id);
-    const response = await axios.get(
-      `http://localhost:8080/addInvite/${invitedFriend}/${e.target.id}`
+      `http://localhost:8080/followEvents/${user}/${e.target.id}`
     );
     console.log(response.data);
     //window.location.reload();
@@ -78,15 +73,10 @@ const Events = () => {
 
   return (
     <div>
-      <div className="text-center mb-5 alert alert-primary">
-        <label htmlFor="" className="h2">
-          Events
-        </label>
-      </div>
       Events Page
-      {console.log("XYZ", allEvents)}
+      {console.log("XYZ", allTypeEvents)}
       <div>
-        {allEvents.map((item, index) => (
+        {allTypeEvents.map((item, index) => (
           <div
             style={{
               display: "flex",
@@ -170,33 +160,6 @@ const Events = () => {
               >
                 Interested
               </Button>
-              <Button
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                variant="primary"
-                id={item?.eventname}
-                onClick={onInvited}
-              >
-                Invite
-              </Button>
-
-              <div className="form-group">
-                <InputLabel>
-                  <strong>Invite Friends</strong>
-                </InputLabel>
-                <select
-                  value={invitedFriend}
-                  onChange={(e) => setInvitedFriend(e.target.value)}
-                >
-                  {info.friends &&
-                    info.friends.map((item, index) => (
-                      <option value={item}>{item}</option>
-                    ))}
-                  <option value={""}>select Friend</option>
-                </select>
-              </div>
             </Card>
           </div>
         ))}
@@ -205,4 +168,4 @@ const Events = () => {
   );
 };
 
-export default Events;
+export default OrgEventsType;

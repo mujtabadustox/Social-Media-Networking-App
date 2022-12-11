@@ -122,11 +122,11 @@ exports.getOneOrg = (req, res) => {
 
 exports.addFollowing = async (req, res) => {
   const following = await Organization.findOne({
-    username: req.params.friendusername,
+    username: req.params.friendorganizationname,
   });
   const organization = await Organization.findOneAndUpdate(
     { username: req.params.username },
-    { $push: { friends: req.params.friendusername } }
+    { $push: { following: req.params.friendorganizationname } }
   );
   organization.save();
   console.log("USER", organization);
@@ -152,13 +152,13 @@ exports.followEvents = async (req, res) => {
 
 exports.sendInvite = async (req, res) => {
   const organization = await Organization.findOneAndUpdate(
-    { username: req.params.friendusername },
+    { username: req.params.friendorganizationname },
     { $push: { invitedTo: req.params.eventname } }
   );
 
   const event = await Event.findOneAndUpdate(
     { eventname: req.params.eventname },
-    { $push: { invited: req.params.friendusername } }
+    { $push: { invited: req.params.friendorganizationname } }
   );
   organization.save();
   event.save();

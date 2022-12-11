@@ -8,15 +8,11 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Image from "react-bootstrap/Image";
 
-import { TextField, InputLabel } from "@mui/material";
+var allusers = [];
 
-var allEvents = [];
-
-const Events = () => {
+const OrgFollowing = () => {
   const [data, setData] = useState({});
-  const [info, setInfo] = useState({});
   const { user, setUser } = useContext(UserContext);
-  const [invitedFriend, setInvitedFriend] = useState("");
 
   function uniq_fast(a) {
     var seen = {};
@@ -24,7 +20,7 @@ const Events = () => {
     var len = a.length;
     var j = 0;
     for (var i = 0; i < len; i++) {
-      var item = a[i]._id;
+      var item = a[i].username;
       console.log("agh:", item, seen[item]);
       if (seen[item] !== 1) {
         seen[item] = 1;
@@ -35,42 +31,29 @@ const Events = () => {
   }
 
   useEffect(() => {
-    const getEvents = async () => {
-      const response3 = await axios.get(
-        `http://localhost:8080/sendUser/${user}`
-      );
-      setInfo(response3.data.data);
-
-      const response = await axios.get(`http://localhost:8080/getEvents`);
+    const getOneUser = async () => {
+      const response = await axios.get(`http://localhost:8080/organization`);
       response.data.data.map((item) => {
-        if (item) {
-          //console.log(user);
-          allEvents.push(item);
+        if (user) {
+          if (item.username !== user) {
+            //console.log(user);
+            allusers.push(item);
+          }
         }
       });
       setData(response.data.data);
       //console.log("aaa", response.data.data);
     };
-    getEvents();
+    getOneUser();
   }, []);
 
-  allEvents = uniq_fast(allEvents);
+  allusers = uniq_fast(allusers);
 
-  const onInterested = async (e) => {
+  const onLike = async (e) => {
     console.log("USSS", user);
     console.log("FOL", e.target.id);
     const response = await axios.get(
-      `http://localhost:8080/addEvents/${user}/${e.target.id}`
-    );
-    console.log(response.data);
-    //window.location.reload();
-  };
-
-  const onInvited = async (e) => {
-    console.log("USSS", user);
-    console.log("FOL", e.target.id);
-    const response = await axios.get(
-      `http://localhost:8080/addInvite/${invitedFriend}/${e.target.id}`
+      `http://localhost:8080/addFollowing/${user}/${e.target.id}`
     );
     console.log(response.data);
     //window.location.reload();
@@ -78,15 +61,10 @@ const Events = () => {
 
   return (
     <div>
-      <div className="text-center mb-5 alert alert-primary">
-        <label htmlFor="" className="h2">
-          Events
-        </label>
-      </div>
-      Events Page
-      {console.log("XYZ", allEvents)}
+      Friends Page
+      {console.log("XYZ", allusers)}
       <div>
-        {allEvents.map((item, index) => (
+        {allusers.map((item, index) => (
           <div
             style={{
               display: "flex",
@@ -105,7 +83,7 @@ const Events = () => {
               }}
             >
               <Card.Header>
-                <strong>{item.eventname}</strong>
+                <strong>{item.username}</strong>
               </Card.Header>
               <div>
                 <Image
@@ -116,7 +94,7 @@ const Events = () => {
                     width: "100px",
                     height: "100px",
                   }}
-                  src={item.photoSrc}
+                  src={item.displaypicture}
                   roundedCircle
                 />
               </div>
@@ -132,7 +110,7 @@ const Events = () => {
                     justifyContent: "center",
                   }}
                 >
-                  Type
+                  Profession
                 </Card.Title>
                 <Card.Text
                   style={{
@@ -140,7 +118,7 @@ const Events = () => {
                     justifyContent: "center",
                   }}
                 >
-                  {item.type}
+                  {item.profession}
                 </Card.Text>
                 <Card.Title
                   style={{
@@ -148,7 +126,7 @@ const Events = () => {
                     justifyContent: "center",
                   }}
                 >
-                  Location
+                  Hobbies
                 </Card.Title>
                 <Card.Text
                   style={{
@@ -156,7 +134,7 @@ const Events = () => {
                     justifyContent: "center",
                   }}
                 >
-                  {item.location}
+                  {item.hobl}
                 </Card.Text>
               </Card.Body>
               <Button
@@ -165,38 +143,11 @@ const Events = () => {
                   justifyContent: "center",
                 }}
                 variant="primary"
-                id={item?.eventname}
-                onClick={onInterested}
+                id={item?.username}
+                onClick={onLike}
               >
-                Interested
+                Add Friend
               </Button>
-              <Button
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                variant="primary"
-                id={item?.eventname}
-                onClick={onInvited}
-              >
-                Invite
-              </Button>
-
-              <div className="form-group">
-                <InputLabel>
-                  <strong>Invite Friends</strong>
-                </InputLabel>
-                <select
-                  value={invitedFriend}
-                  onChange={(e) => setInvitedFriend(e.target.value)}
-                >
-                  {info.friends &&
-                    info.friends.map((item, index) => (
-                      <option value={item}>{item}</option>
-                    ))}
-                  <option value={""}>select Friend</option>
-                </select>
-              </div>
             </Card>
           </div>
         ))}
@@ -205,4 +156,4 @@ const Events = () => {
   );
 };
 
-export default Events;
+export default OrgFollowing;

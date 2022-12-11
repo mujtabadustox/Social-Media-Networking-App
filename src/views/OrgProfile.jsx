@@ -64,12 +64,12 @@ const OrgProfile = () => {
           Logout
         </button>
         {user && (
-          <Link className="btn btn-dark" to="/">
+          <Link className="btn btn-dark" to="/orghome">
             Home
           </Link>
         )}
         {user && (
-          <Link className="btn btn-dark" to="/friendspage">
+          <Link className="btn btn-dark" to="/orgfriendspage">
             Find Friends
           </Link>
         )}

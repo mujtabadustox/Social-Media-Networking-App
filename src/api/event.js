@@ -6,6 +6,7 @@ export const uploadEvent = async ({
   startDate,
   endDate,
   description,
+  stars,
   type,
   location,
 } = {}) => {
@@ -17,6 +18,7 @@ export const uploadEvent = async ({
     startDate,
     endDate,
     description,
+    stars,
     type,
     location,
   };
@@ -82,6 +84,21 @@ export const getOneEventTp = async ({ type }) => {
       method: "GET",
       credentials: "include",
     });
+    return await res.json();
+  } catch (err) {
+    throw new Error("Please login to continue");
+  }
+};
+
+export const getOneEventEn = async ({ eventname }) => {
+  try {
+    const res = await fetch(
+      `http://localhost:8080/getOneEventEn/${eventname}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
     return await res.json();
   } catch (err) {
     throw new Error("Please login to continue");

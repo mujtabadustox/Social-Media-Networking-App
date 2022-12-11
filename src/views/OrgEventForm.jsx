@@ -12,7 +12,7 @@ import { TextField, InputLabel, Button, FormHelperText } from "@mui/material";
 
 import dp from "./img.png";
 
-const EventForm = () => {
+const OrgEventForm = () => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const [data, setData] = useState({});
@@ -23,7 +23,6 @@ const EventForm = () => {
   const [startDate, onChangeStartDate] = useState(new Date());
   const [endDate, onChangeEndDate] = useState(new Date());
   const [type, setType] = useState("");
-
   const [stars, setStars] = useState(0);
 
   let maxStars = stars <= 5000;
@@ -183,7 +182,11 @@ const EventForm = () => {
         </div>
 
         <div className="text-center mt-4">
-          <Button variant="contained" onClick={handleEvent}>
+          <Button
+            disabled={!maxStars}
+            variant="contained"
+            onClick={handleEvent}
+          >
             Submit
           </Button>
         </div>
@@ -193,4 +196,4 @@ const EventForm = () => {
   );
 };
 
-export default EventForm;
+export default OrgEventForm;

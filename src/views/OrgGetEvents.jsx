@@ -12,11 +12,11 @@ import { TextField, InputLabel } from "@mui/material";
 
 var allEvents = [];
 
-const Events = () => {
+const OrgGetEvents = () => {
   const [data, setData] = useState({});
   const [info, setInfo] = useState({});
   const { user, setUser } = useContext(UserContext);
-  const [invitedFriend, setInvitedFriend] = useState("");
+  const [invitedOrg, setInvitedOrg] = useState("");
 
   function uniq_fast(a) {
     var seen = {};
@@ -37,7 +37,7 @@ const Events = () => {
   useEffect(() => {
     const getEvents = async () => {
       const response3 = await axios.get(
-        `http://localhost:8080/sendUser/${user}`
+        `http://localhost:8080/sendOrg/${user}`
       );
       setInfo(response3.data.data);
 
@@ -60,7 +60,7 @@ const Events = () => {
     console.log("USSS", user);
     console.log("FOL", e.target.id);
     const response = await axios.get(
-      `http://localhost:8080/addEvents/${user}/${e.target.id}`
+      `http://localhost:8080/followEvents/${user}/${e.target.id}`
     );
     console.log(response.data);
     //window.location.reload();
@@ -68,9 +68,10 @@ const Events = () => {
 
   const onInvited = async (e) => {
     console.log("USSS", user);
+    console.log("USSS1", invitedOrg);
     console.log("FOL", e.target.id);
     const response = await axios.get(
-      `http://localhost:8080/addInvite/${invitedFriend}/${e.target.id}`
+      `http://localhost:8080/sendInvite/${invitedOrg}/${e.target.id}`
     );
     console.log(response.data);
     //window.location.reload();
@@ -184,17 +185,17 @@ const Events = () => {
 
               <div className="form-group">
                 <InputLabel>
-                  <strong>Invite Friends</strong>
+                  <strong>Invite Other Organizations</strong>
                 </InputLabel>
                 <select
-                  value={invitedFriend}
-                  onChange={(e) => setInvitedFriend(e.target.value)}
+                  value={invitedOrg}
+                  onChange={(e) => setInvitedOrg(e.target.value)}
                 >
-                  {info.friends &&
-                    info.friends.map((item, index) => (
+                  {info.following &&
+                    info.following.map((item, index) => (
                       <option value={item}>{item}</option>
                     ))}
-                  <option value={""}>select Friend</option>
+                  <option value={""}>select Organization</option>
                 </select>
               </div>
             </Card>
@@ -205,4 +206,4 @@ const Events = () => {
   );
 };
 
-export default Events;
+export default OrgGetEvents;

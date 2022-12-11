@@ -68,3 +68,18 @@ exports.getOneEventTp = (req, res) => {
     }
   });
 };
+
+exports.getOneEventEn = (req, res) => {
+  Event.find({ eventname: { $eq: req.params.eventname } }, (error, data) => {
+    if (error) {
+      return res.status(401).json({
+        error: "Retrieve Failed",
+      });
+    } else {
+      return res.json({
+        message: "Lmao",
+        data,
+      });
+    }
+  });
+};

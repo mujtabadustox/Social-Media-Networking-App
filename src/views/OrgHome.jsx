@@ -173,19 +173,19 @@ const OrgHome = () => {
           Submit
         </Button>
       </div>
-      <Link className="btn btn-dark" to="/content">
+      <Link className="btn btn-dark" to="/orgcontent">
         Show Friend Posts
       </Link>
-      <Link className="btn btn-dark" to="/createEvent">
+      <Link className="btn btn-dark" to="/orgcreateevent">
         Add an Event
       </Link>
-      <Link className="btn btn-dark" to="/showevents">
+      <Link className="btn btn-dark" to="/orgshowevents">
         Show Events
       </Link>
-      <Link className="btn btn-dark" to="/eventstypes">
+      <Link className="btn btn-dark" to="/orgeventstypes">
         Show Events (By Hobbies)
       </Link>
-      <Link className="btn btn-dark" to="/searchevents">
+      <Link className="btn btn-dark" to="/orgsearchevents">
         Search Events
       </Link>
       <div className="bottom">
