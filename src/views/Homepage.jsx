@@ -131,11 +131,75 @@ const Homepage = () => {
     </div>
   ) : (
     <div className="container text-center">
-      <div className="alert alert-light p-1">
-        <h1>{user && <span className="text-success">Salam {user}!!</span>}</h1>
+      <div className="my-navbar">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul className="navbar-nav ml-auto ">
+              <li className="nav-item active">
+                <Link className="nav-link" to="/profile">
+                  Profile
+                </Link>
+              </li>
+              <li className="nav-item active">
+                <Link className="nav-link" to="/friendspage">
+                  Find Friends
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/showevents">
+                  Events
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="btn btn-dark" to="/eventstypes">
+                  Show Events (By Hobbies)
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/searchevents">
+                  Search Event
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/createEvent">
+                  Create an Event
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/friends">
+                  Friends
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/content">
+                  Friends' Posts
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div className="text-center mb-5 alert alert-primary">
+        <label htmlFor="" className="h1">
+          Homepage
+        </label>
+        <h1>Welcome {user} Make a Post</h1>
       </div>
       <div className="container mt-5 mb-5 col-10 col-sm-8 col-md-6 col-lg-5">
-        <div className="card">
+        <div className="my-info">
+          <h2>Post away your feelings!!!</h2>
+          <h3>Enter Text</h3>
           <TextField
             size="big"
             variant="outlined"
@@ -145,7 +209,8 @@ const Homepage = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-        <div>
+        <h3>Post a Picture</h3>
+        <div className="other-images">
           <img
             className="rounded"
             src={dp}
@@ -154,21 +219,13 @@ const Homepage = () => {
             alt="show-img"
             id="newImg"
           ></img>
-          <input type="file" id="myImage" onChange={readFile} />
-          <input type="file" id="myVideo" onChange={readVideo} />
         </div>
+        <input type="file" id="myImage" onChange={readFile} />
+        <input type="file" id="myVideo" onChange={readVideo} />
+
         <div className="text-center mt-4">
-          <Button variant="contained" onClick={handleVideo}>
-            Post a Video
-          </Button>
-          <Button
-            // variant="contained"
-            // disabled=
-            // }
-            onClick={handleImage}
-          >
-            Post a Picture
-          </Button>
+          <Button onClick={handleVideo}>Post a Video</Button>
+          <Button onClick={handleImage}>Post a Picture</Button>
         </div>
         <Button variant="contained" onClick={handlePosting}>
           Submit

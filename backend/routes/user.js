@@ -13,6 +13,7 @@ const {
   addEvents,
   addInvite,
   removeFriends,
+  addPoints,
 } = require("../controllers/user");
 
 // import middlewares
@@ -33,5 +34,7 @@ router.get("/removeFriends/:username/:friendusername", removeFriends);
 router.get("/addInvite/:friendusername/:eventname", addInvite);
 
 router.get("/addEvents/:username/:eventname", addEvents);
+
+router.get("/addPoints/:username", addPoints);
 
 module.exports = router;

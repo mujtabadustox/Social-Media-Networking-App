@@ -12,8 +12,9 @@ import "./Styles/Profile.css";
 
 var allusers = [];
 
-const FriendsPage = () => {
+const Friends = () => {
   const [data, setData] = useState({});
+  const [newData, setNewData] = useState({});
   const { user, setUser } = useContext(UserContext);
 
   function uniq_fast(a) {
@@ -38,26 +39,19 @@ const FriendsPage = () => {
       const response1 = await axios.get(
         `http://localhost:8080/sendUser/${user}`
       );
+      setNewData(response1.data.data);
       console.log("aaa", response1.data.data);
 
       const response = await axios.get(`http://localhost:8080/send`);
       response.data.data.map((item) => {
         if (user) {
           if (item.username !== user) {
-            if (response1.data.data.friends.length > 0) {
-              response1.data.data.friends.map((frnds) => {
-                if (frnds !== item.username) {
-                  console.log("frnd:", frnds);
-                  console.log("item:", item.username);
-                  allusers.push(item);
-                }
-              });
-
-              //console.log(user);
-              //allusers.push(item);
-            } else {
-              allusers.push(item);
-            }
+            response1.data.data.friends.map((frnds) => {
+              if (frnds == item.username) {
+                allusers.push(item);
+              }
+            });
+            //console.log(user);
           }
         }
       });
@@ -69,11 +63,11 @@ const FriendsPage = () => {
 
   allusers = uniq_fast(allusers);
 
-  const onLike = async (e) => {
+  const onRemove = async (e) => {
     console.log("USSS", user);
     console.log("FOL", e.target.id);
     const response = await axios.get(
-      `http://localhost:8080/addFriends/${user}/${e.target.id}`
+      `http://localhost:8080/removeFriends/${user}/${e.target.id}`
     );
     console.log(response.data);
     //window.location.reload();
@@ -83,7 +77,7 @@ const FriendsPage = () => {
     <div>
       <div className="text-center mb-5 alert alert-primary">
         <label htmlFor="" className="h2">
-          Meet Friends
+          Your Friends
         </label>
       </div>
       {console.log("XYZ", allusers)}
@@ -169,9 +163,9 @@ const FriendsPage = () => {
                 }}
                 variant="primary"
                 id={item?.username}
-                onClick={onLike}
+                onClick={onRemove}
               >
-                Add Friend
+                Remove Friend
               </Button>
             </Card>
           </div>
@@ -181,4 +175,4 @@ const FriendsPage = () => {
   );
 };
 
-export default FriendsPage;
+export default Friends;

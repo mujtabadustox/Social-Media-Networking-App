@@ -37,6 +37,8 @@ import OrgSearchEvent from "./views/OrgSearchEvent";
 import OrgGetEvents from "./views/OrgGetEvents";
 import OrgEventForm from "./views/OrgEventForm";
 import OrgTypeEvents from "./views/OrgTypeEvents";
+import Friends from "./views/Friends";
+import Followings from "./views/Followings";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -64,6 +66,7 @@ const App = () => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/friendspage" component={FriendsPage} />
+          <Route exact path="/friends" component={Friends} />
           <Route exact path="/content" component={Content} />
           <Route exact path="/createEvent" component={EventForm} />
           <Route exact path="/showevents" component={Events} />
@@ -78,6 +81,7 @@ const App = () => {
           <Route exact path="/orgshowevents" component={OrgGetEvents} />
           <Route exact path="/orgsearchevents" component={OrgSearchEvent} />
           <Route exact path="/orgcreateevent" component={OrgEventForm} />
+          <Route exact path="/followings" component={Followings} />
           <Route exact path="/orgeventstypes" component={OrgTypeEvents} />
         </UserContext.Provider>
       </Router>

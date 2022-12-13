@@ -148,3 +148,18 @@ export const addInvite = async ({ friendusername, eventname }) => {
     throw new Error("Error Adding");
   }
 };
+
+export const addPoints = async ({ username, points }) => {
+  try {
+    const res = await fetch(
+      `http://localhost:8080/addPoints/${username}/${points}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    return await res.json();
+  } catch (err) {
+    throw new Error("Error Adding");
+  }
+};

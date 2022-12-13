@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
     },
     points: {
       type: Number,
-      trim: true,
+      default: 0,
     },
     hashedPassword: {
       type: String,

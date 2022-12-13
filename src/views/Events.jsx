@@ -59,6 +59,13 @@ const Events = () => {
   const onInterested = async (e) => {
     console.log("USSS", user);
     console.log("FOL", e.target.id);
+
+    let pts = 500;
+
+    // const response1 = await axios.get(
+    //   `http://localhost:8080/addPoints/${user}`
+    // );
+
     const response = await axios.get(
       `http://localhost:8080/addEvents/${user}/${e.target.id}`
     );
@@ -83,22 +90,21 @@ const Events = () => {
           Events
         </label>
       </div>
-      Events Page
       {console.log("XYZ", allEvents)}
       <div>
         {allEvents.map((item, index) => (
           <div
             style={{
-              display: "flex",
+              display: "inline-block",
               alignItems: "center",
               justifyContent: "center",
-              paddingLeft: "300px",
+              paddingLeft: "100px",
               width: "50%",
             }}
           >
             <Card
               style={{
-                display: "flex",
+                display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
                 width: "500px",
@@ -170,18 +176,6 @@ const Events = () => {
               >
                 Interested
               </Button>
-              <Button
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                variant="primary"
-                id={item?.eventname}
-                onClick={onInvited}
-              >
-                Invite
-              </Button>
-
               <div className="form-group">
                 <InputLabel>
                   <strong>Invite Friends</strong>
@@ -194,8 +188,19 @@ const Events = () => {
                     info.friends.map((item, index) => (
                       <option value={item}>{item}</option>
                     ))}
-                  <option value={""}>select Friend</option>
+                  <option value={""}>Select Friend</option>
                 </select>
+                <Button
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  variant="primary"
+                  id={item?.eventname}
+                  onClick={onInvited}
+                >
+                  Invite
+                </Button>
               </div>
             </Card>
           </div>

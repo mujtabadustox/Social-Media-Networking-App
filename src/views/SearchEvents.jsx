@@ -94,7 +94,6 @@ const SearchEvents = () => {
 
   return (
     <div>
-      SearchEvents
       <div className="text-center mb-5 alert alert-primary">
         <label htmlFor="" className="h2">
           Search Events
@@ -137,16 +136,16 @@ const SearchEvents = () => {
           {filteredEvents.map((item, index) => (
             <div
               style={{
-                display: "flex",
+                display: "inline-block",
                 alignItems: "center",
                 justifyContent: "center",
-                paddingLeft: "300px",
+                paddingLeft: "100px",
                 width: "50%",
               }}
             >
               <Card
                 style={{
-                  display: "flex",
+                  display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
                   width: "500px",

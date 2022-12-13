@@ -2,3 +2,36 @@
     margin-top: 490px;
     background-color: blueviolet;
 }
+
+.my-info{
+    text-align: center;
+    line-height: 24px;
+    font-size: 18px;
+    color: rgb(51, 51, 51);
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  .other-images{
+    width: 66%;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  
+  }
+
+  ::-webkit-file-upload-button {
+    display: none;
+ }
+
+ #myImage {
+    display: none;
+ }
+
+ #myVideo {
+    display: none;
+ }
+
+ .my-navbar{
+    margin-top: 20px;
+ }

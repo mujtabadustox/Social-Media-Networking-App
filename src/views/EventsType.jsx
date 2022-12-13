@@ -33,6 +33,7 @@ const EventsType = () => {
 
   useEffect(() => {
     const getEvents = async () => {
+      console.log("user:", user);
       const response3 = await axios.get(
         `http://localhost:8080/sendUser/${user}`
       );
@@ -59,8 +60,6 @@ const EventsType = () => {
   allTypeEvents = uniq_fast(allTypeEvents);
 
   const onInterested = async (e) => {
-    console.log("USSS", user);
-    console.log("FOL", e.target.id);
     const response = await axios.get(
       `http://localhost:8080/addEvents/${user}/${e.target.id}`
     );
@@ -70,22 +69,25 @@ const EventsType = () => {
 
   return (
     <div>
-      Events Page
-      {console.log("XYZ", allTypeEvents)}
+      <div className="text-center mb-5 alert alert-primary">
+        <label htmlFor="" className="h2">
+          Events for Your Hobbies
+        </label>
+      </div>
       <div>
         {allTypeEvents.map((item, index) => (
           <div
             style={{
-              display: "flex",
+              display: "inline-block",
               alignItems: "center",
               justifyContent: "center",
-              paddingLeft: "300px",
+              paddingLeft: "100px",
               width: "50%",
             }}
           >
             <Card
               style={{
-                display: "flex",
+                display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
                 width: "500px",

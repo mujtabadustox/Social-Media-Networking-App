@@ -5,6 +5,7 @@ import { useHistory, Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { getOnePost } from "../api/post";
+import "./Styles/Profile.css";
 
 var allFriends = [];
 
@@ -80,21 +81,35 @@ const Content = () => {
 
   return (
     <div>
-      abc{console.log(followingList)}
-      {followingList.map((item) => (
-        <div>
-          <h2>{item.username}</h2>
-          <h3>{item.description}</h3>
-          <img
-            className="rounded"
-            src={item.photoSrc}
-            width="500"
-            height="200"
-            alt="show-img"
-            id="newImg"
-          ></img>
+      <div className="container mt-5 mb-5 col-10 col-sm-8 col-md-6 col-lg-5">
+        <div className="text-center mb-5 alert alert-primary">
+          <label htmlFor="" className="h2">
+            Posts
+          </label>
         </div>
-      ))}
+        <div className="friend-posts">
+          {followingList && followingList.length > 0 && <h1>Friends' Posts</h1>}
+          {followingList &&
+            followingList.map((item) => (
+              <div className="posts">
+                <h3>Posted By: </h3>
+                <p>{item.username}</p>
+                <h3>Text: </h3>
+                <p>{item.description}</p>
+                <div className="card">
+                  <img
+                    className="other-images"
+                    src={item.photoSrc}
+                    width="500"
+                    height="200"
+                    alt="show-img"
+                    id="newImg"
+                  ></img>
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
     </div>
   );
 

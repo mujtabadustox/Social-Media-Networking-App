@@ -36,7 +36,7 @@ const OrgProfile = () => {
         toast.success(res.message);
         setUser(null);
         // redirect the user to home
-        history.replace("/");
+        history.replace("orglogin");
       }
     } catch (err) {
       toast.error(err);
@@ -45,6 +45,65 @@ const OrgProfile = () => {
 
   return (
     <div className="container text-center">
+      <div className="my-navbar">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul className="navbar-nav ml-auto ">
+              <li className="nav-item active">
+                <Link className="nav-link" to="/orgprofile">
+                  Profile
+                </Link>
+              </li>
+              <li className="nav-item active">
+                <Link className="nav-link" to="/orgfriendspage">
+                  Find Organizations
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/orgshowevents">
+                  Events
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="btn btn-dark" to="/orgeventstypes">
+                  Show Events (By Hobbies)
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/orgsearchevents">
+                  Search Event
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/orgcreateevent">
+                  Create an Event
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/followings">
+                  Followings
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/orgcontent">
+                  Oragnizations' Posts
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
       <div className="alert alert-light p-1">
         <h1>
           {user && (
